@@ -1,0 +1,143 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\franc\\source\\repos\\smart-card\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\franc\\source\\repos\\smart-card\\WebApiSmartCard\\Models\\Tarjeta.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:WebApiSmartCard\\Models\\Tarjeta.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\franc\\source\\repos\\smart-card\\WebApiSmartCard\\Models\\Cuenta.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:WebApiSmartCard\\Models\\Cuenta.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\franc\\source\\repos\\smart-card\\WebApiSmartCard\\Models\\Usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:WebApiSmartCard\\Models\\Usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\franc\\source\\repos\\smart-card\\WebApiSmartCard\\Models\\FormatoTarjeta.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:WebApiSmartCard\\Models\\FormatoTarjeta.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\franc\\source\\repos\\smart-card\\WebApiSmartCard\\Models\\TipoTarjeta.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:WebApiSmartCard\\Models\\TipoTarjeta.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\franc\\source\\repos\\smart-card\\WebApiSmartCard\\Models\\Pais.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:WebApiSmartCard\\Models\\Pais.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\franc\\source\\repos\\smart-card\\WebApiSmartCard\\Models\\UsuarioSistema.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:WebApiSmartCard\\Models\\UsuarioSistema.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Tarjeta.cs",
+              "DocumentMoniker": "C:\\Users\\franc\\source\\repos\\smart-card\\WebApiSmartCard\\Models\\Tarjeta.cs",
+              "RelativeDocumentMoniker": "WebApiSmartCard\\Models\\Tarjeta.cs",
+              "ToolTip": "C:\\Users\\franc\\source\\repos\\smart-card\\WebApiSmartCard\\Models\\Tarjeta.cs",
+              "RelativeToolTip": "WebApiSmartCard\\Models\\Tarjeta.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-28T03:51:20.921Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Cuenta.cs",
+              "DocumentMoniker": "C:\\Users\\franc\\source\\repos\\smart-card\\WebApiSmartCard\\Models\\Cuenta.cs",
+              "RelativeDocumentMoniker": "WebApiSmartCard\\Models\\Cuenta.cs",
+              "ToolTip": "C:\\Users\\franc\\source\\repos\\smart-card\\WebApiSmartCard\\Models\\Cuenta.cs",
+              "RelativeToolTip": "WebApiSmartCard\\Models\\Cuenta.cs",
+              "ViewState": "AgIAACwAAAAAAAAAAAAwwCcAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-28T03:50:38.282Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Usuario.cs",
+              "DocumentMoniker": "C:\\Users\\franc\\source\\repos\\smart-card\\WebApiSmartCard\\Models\\Usuario.cs",
+              "RelativeDocumentMoniker": "WebApiSmartCard\\Models\\Usuario.cs",
+              "ToolTip": "C:\\Users\\franc\\source\\repos\\smart-card\\WebApiSmartCard\\Models\\Usuario.cs",
+              "RelativeToolTip": "WebApiSmartCard\\Models\\Usuario.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-28T03:50:15.321Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "FormatoTarjeta.cs",
+              "DocumentMoniker": "C:\\Users\\franc\\source\\repos\\smart-card\\WebApiSmartCard\\Models\\FormatoTarjeta.cs",
+              "RelativeDocumentMoniker": "WebApiSmartCard\\Models\\FormatoTarjeta.cs",
+              "ToolTip": "C:\\Users\\franc\\source\\repos\\smart-card\\WebApiSmartCard\\Models\\FormatoTarjeta.cs",
+              "RelativeToolTip": "WebApiSmartCard\\Models\\FormatoTarjeta.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAYwDIAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-28T03:49:48.154Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "TipoTarjeta.cs",
+              "DocumentMoniker": "C:\\Users\\franc\\source\\repos\\smart-card\\WebApiSmartCard\\Models\\TipoTarjeta.cs",
+              "RelativeDocumentMoniker": "WebApiSmartCard\\Models\\TipoTarjeta.cs",
+              "ToolTip": "C:\\Users\\franc\\source\\repos\\smart-card\\WebApiSmartCard\\Models\\TipoTarjeta.cs",
+              "RelativeToolTip": "WebApiSmartCard\\Models\\TipoTarjeta.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADIAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-28T03:49:26.727Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Pais.cs",
+              "DocumentMoniker": "C:\\Users\\franc\\source\\repos\\smart-card\\WebApiSmartCard\\Models\\Pais.cs",
+              "RelativeDocumentMoniker": "WebApiSmartCard\\Models\\Pais.cs",
+              "ToolTip": "C:\\Users\\franc\\source\\repos\\smart-card\\WebApiSmartCard\\Models\\Pais.cs",
+              "RelativeToolTip": "WebApiSmartCard\\Models\\Pais.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAD4AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-28T03:48:51.432Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "UsuarioSistema.cs",
+              "DocumentMoniker": "C:\\Users\\franc\\source\\repos\\smart-card\\WebApiSmartCard\\Models\\UsuarioSistema.cs",
+              "RelativeDocumentMoniker": "WebApiSmartCard\\Models\\UsuarioSistema.cs",
+              "ToolTip": "C:\\Users\\franc\\source\\repos\\smart-card\\WebApiSmartCard\\Models\\UsuarioSistema.cs",
+              "RelativeToolTip": "WebApiSmartCard\\Models\\UsuarioSistema.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-28T03:48:12.814Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
