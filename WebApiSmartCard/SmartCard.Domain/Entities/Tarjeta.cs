@@ -1,17 +1,26 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SmartCard.Domain.Entities;
 
 public class Tarjeta
 {
+    [Key]
     public int IdTarjeta { get; set; }
+    [ForeignKey("Cuenta")]
     public int? IdCuenta { get; set; }
+    [ForeignKey("FormatoTarjeta")]
     public int? IdFormato { get; set; }
+
+    [ForeignKey("TipoTarjeta")]
     public int? IdTipo { get; set; }
+    [Required, MaxLength(32)]
     public string? Pan { get; set; }
+    [MaxLength(20)]
     public string? Pin { get; set; }
     public DateTime? FechaEmision { get; set; }
     public DateTime? FechaExpiracion { get; set; }
+    [ForeignKey("Pais")]
     public int? IdPaisEmision { get; set; }
     public bool? DdaHabilitado { get; set; }
     public bool? ArqcHabilitado { get; set; }

@@ -4,7 +4,9 @@ namespace SmartCard.Domain.Entities;
 
 public class FormatoTarjeta
 {
+    [Key]
     public int IdFormato { get; set; }
+    [Required, MaxLength(50)]
     public string? Nombre { get; set; }
 
     // Audit

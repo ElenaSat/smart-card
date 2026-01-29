@@ -9,7 +9,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[Cuenta, WebApiSmartCard, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[SmartCard.Application.DTOs.CuentaDto, SmartCard.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -28,14 +28,14 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "cuenta",
-        "Type": "Cuenta",
+        "Name": "command",
+        "Type": "SmartCard.Application.Features.Cuentas.Commands.CreateCuentaCommandHandler",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "Cuenta",
+        "Type": "System.Int32",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -61,7 +61,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "Cuenta",
+        "Type": "SmartCard.Application.DTOs.CuentaDto",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -85,8 +85,8 @@
         "IsRequired": true
       },
       {
-        "Name": "cuenta",
-        "Type": "Cuenta",
+        "Name": "command",
+        "Type": "SmartCard.Application.Features.Cuentas.Commands.UpdateCuentaCommand",
         "IsRequired": true
       }
     ],
@@ -110,7 +110,7 @@
   },
   {
     "ContainingType": "WebApiSmartCard.Controllers.FormatoTarjetasController",
-    "Method": "GetFormatosTarjeta",
+    "Method": "Get",
     "RelativePath": "api/FormatoTarjetas",
     "HttpMethod": "GET",
     "IsController": true,
@@ -118,7 +118,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[FormatoTarjeta, WebApiSmartCard, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[SmartCard.Application.DTOs.FormatoTarjetaDto, SmartCard.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -130,21 +130,21 @@
   },
   {
     "ContainingType": "WebApiSmartCard.Controllers.FormatoTarjetasController",
-    "Method": "PostFormatoTarjeta",
+    "Method": "Post",
     "RelativePath": "api/FormatoTarjetas",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "formatoTarjeta",
-        "Type": "FormatoTarjeta",
+        "Name": "command",
+        "Type": "SmartCard.Application.Features.FormatosTarjeta.Commands.CreateFormatoCommand",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "FormatoTarjeta",
+        "Type": "System.Int32",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -156,7 +156,7 @@
   },
   {
     "ContainingType": "WebApiSmartCard.Controllers.FormatoTarjetasController",
-    "Method": "GetFormatoTarjeta",
+    "Method": "Get",
     "RelativePath": "api/FormatoTarjetas/{id}",
     "HttpMethod": "GET",
     "IsController": true,
@@ -170,7 +170,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "FormatoTarjeta",
+        "Type": "SmartCard.Application.DTOs.FormatoTarjetaDto",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -182,7 +182,7 @@
   },
   {
     "ContainingType": "WebApiSmartCard.Controllers.FormatoTarjetasController",
-    "Method": "PutFormatoTarjeta",
+    "Method": "Put",
     "RelativePath": "api/FormatoTarjetas/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
@@ -194,8 +194,8 @@
         "IsRequired": true
       },
       {
-        "Name": "formatoTarjeta",
-        "Type": "FormatoTarjeta",
+        "Name": "command",
+        "Type": "SmartCard.Application.Features.FormatosTarjeta.Commands.UpdateFormatoCommand",
         "IsRequired": true
       }
     ],
@@ -203,7 +203,7 @@
   },
   {
     "ContainingType": "WebApiSmartCard.Controllers.FormatoTarjetasController",
-    "Method": "DeleteFormatoTarjeta",
+    "Method": "Delete",
     "RelativePath": "api/FormatoTarjetas/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
@@ -227,7 +227,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[Pais, WebApiSmartCard, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[SmartCard.Application.DTOs.PaisDto, SmartCard.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -246,14 +246,14 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "pais",
-        "Type": "Pais",
+        "Name": "command",
+        "Type": "SmartCard.Application.Features.Paises.Commands.CreatePaisCommand",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "Pais",
+        "Type": "System.Int32",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -279,7 +279,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "Pais",
+        "Type": "SmartCard.Application.DTOs.PaisDto",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -303,8 +303,8 @@
         "IsRequired": true
       },
       {
-        "Name": "pais",
-        "Type": "Pais",
+        "Name": "command",
+        "Type": "SmartCard.Application.Features.Paises.Commands.UpdatePaisCommand",
         "IsRequired": true
       }
     ],
@@ -336,7 +336,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[Tarjeta, WebApiSmartCard, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[SmartCard.Application.DTOs.TarjetaDto, SmartCard.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -355,14 +355,14 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "tarjeta",
-        "Type": "Tarjeta",
+        "Name": "command",
+        "Type": "SmartCard.Application.Features.Tarjetas.Commands.CreateTarjetaCommand",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "Tarjeta",
+        "Type": "System.Int32",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -388,7 +388,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "Tarjeta",
+        "Type": "SmartCard.Application.DTOs.TarjetaDto",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -412,8 +412,8 @@
         "IsRequired": true
       },
       {
-        "Name": "tarjeta",
-        "Type": "Tarjeta",
+        "Name": "command",
+        "Type": "SmartCard.Application.Features.Tarjetas.Commands.UpdateTarjetaCommand",
         "IsRequired": true
       }
     ],
@@ -437,7 +437,7 @@
   },
   {
     "ContainingType": "WebApiSmartCard.Controllers.TipoTarjetasController",
-    "Method": "GetTiposTarjeta",
+    "Method": "Get",
     "RelativePath": "api/TipoTarjetas",
     "HttpMethod": "GET",
     "IsController": true,
@@ -445,7 +445,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[TipoTarjeta, WebApiSmartCard, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[SmartCard.Application.DTOs.TipoTarjetaDto, SmartCard.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -457,21 +457,21 @@
   },
   {
     "ContainingType": "WebApiSmartCard.Controllers.TipoTarjetasController",
-    "Method": "PostTipoTarjeta",
+    "Method": "Post",
     "RelativePath": "api/TipoTarjetas",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "tipoTarjeta",
-        "Type": "TipoTarjeta",
+        "Name": "command",
+        "Type": "SmartCard.Application.Features.TiposTarjeta.Commands.CreateTipoCommand",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "TipoTarjeta",
+        "Type": "System.Int32",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -483,7 +483,7 @@
   },
   {
     "ContainingType": "WebApiSmartCard.Controllers.TipoTarjetasController",
-    "Method": "GetTipoTarjeta",
+    "Method": "Get",
     "RelativePath": "api/TipoTarjetas/{id}",
     "HttpMethod": "GET",
     "IsController": true,
@@ -497,7 +497,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "TipoTarjeta",
+        "Type": "SmartCard.Application.DTOs.TipoTarjetaDto",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -509,7 +509,7 @@
   },
   {
     "ContainingType": "WebApiSmartCard.Controllers.TipoTarjetasController",
-    "Method": "PutTipoTarjeta",
+    "Method": "Put",
     "RelativePath": "api/TipoTarjetas/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
@@ -521,8 +521,8 @@
         "IsRequired": true
       },
       {
-        "Name": "tipoTarjeta",
-        "Type": "TipoTarjeta",
+        "Name": "command",
+        "Type": "SmartCard.Application.Features.TiposTarjeta.Commands.UpdateTipoCommand",
         "IsRequired": true
       }
     ],
@@ -530,7 +530,7 @@
   },
   {
     "ContainingType": "WebApiSmartCard.Controllers.TipoTarjetasController",
-    "Method": "DeleteTipoTarjeta",
+    "Method": "Delete",
     "RelativePath": "api/TipoTarjetas/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
@@ -554,7 +554,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[Usuario, WebApiSmartCard, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[SmartCard.Application.DTOs.UsuarioDto, SmartCard.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -573,14 +573,14 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "usuario",
-        "Type": "Usuario",
+        "Name": "command",
+        "Type": "SmartCard.Application.Features.Usuarios.Commands.CreateUsuarioCommand",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "Usuario",
+        "Type": "System.Int32",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -606,7 +606,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "Usuario",
+        "Type": "SmartCard.Application.DTOs.UsuarioDto",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -630,8 +630,8 @@
         "IsRequired": true
       },
       {
-        "Name": "usuario",
-        "Type": "Usuario",
+        "Name": "command",
+        "Type": "SmartCard.Application.Features.Usuarios.Commands.UpdateUsuarioCommand",
         "IsRequired": true
       }
     ],
@@ -655,7 +655,7 @@
   },
   {
     "ContainingType": "WebApiSmartCard.Controllers.UsuarioSistemasController",
-    "Method": "GetUsuarioSistema",
+    "Method": "Get",
     "RelativePath": "api/UsuarioSistemas",
     "HttpMethod": "GET",
     "IsController": true,
@@ -663,7 +663,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[UsuarioSistema, WebApiSmartCard, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[SmartCard.Application.DTOs.UsuarioSistemaDto, SmartCard.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -675,21 +675,21 @@
   },
   {
     "ContainingType": "WebApiSmartCard.Controllers.UsuarioSistemasController",
-    "Method": "PostUsuarioSistema",
+    "Method": "Post",
     "RelativePath": "api/UsuarioSistemas",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "usuarioSistema",
-        "Type": "UsuarioSistema",
+        "Name": "command",
+        "Type": "SmartCard.Application.Features.Administracion.Commands.CreateUsuarioSistemaCommand",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "UsuarioSistema",
+        "Type": "System.Int32",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -701,7 +701,7 @@
   },
   {
     "ContainingType": "WebApiSmartCard.Controllers.UsuarioSistemasController",
-    "Method": "GetUsuarioSistema",
+    "Method": "Get",
     "RelativePath": "api/UsuarioSistemas/{id}",
     "HttpMethod": "GET",
     "IsController": true,
@@ -715,7 +715,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "UsuarioSistema",
+        "Type": "SmartCard.Application.DTOs.UsuarioSistemaDto",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -727,7 +727,7 @@
   },
   {
     "ContainingType": "WebApiSmartCard.Controllers.UsuarioSistemasController",
-    "Method": "PutUsuarioSistema",
+    "Method": "Put",
     "RelativePath": "api/UsuarioSistemas/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
@@ -739,8 +739,8 @@
         "IsRequired": true
       },
       {
-        "Name": "usuarioSistema",
-        "Type": "UsuarioSistema",
+        "Name": "command",
+        "Type": "SmartCard.Application.Features.Administracion.Commands.UpdateUsuarioSistemaCommand",
         "IsRequired": true
       }
     ],
@@ -748,7 +748,7 @@
   },
   {
     "ContainingType": "WebApiSmartCard.Controllers.UsuarioSistemasController",
-    "Method": "DeleteUsuarioSistema",
+    "Method": "Delete",
     "RelativePath": "api/UsuarioSistemas/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,

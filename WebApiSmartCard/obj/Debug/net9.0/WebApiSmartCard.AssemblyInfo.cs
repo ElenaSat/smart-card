@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WebApiSmartCard")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4455007ef7de6a7865528fdfac3eab3fdf8543ae")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+852c77b5c88b80570e1666ffaef0d896fe5f4c33")]
 [assembly: System.Reflection.AssemblyProductAttribute("WebApiSmartCard")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WebApiSmartCard")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

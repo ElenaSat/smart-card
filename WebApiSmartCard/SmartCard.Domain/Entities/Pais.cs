@@ -4,8 +4,11 @@ namespace SmartCard.Domain.Entities;
 
 public class Pais
 {
+    [Key]
     public int IdPais { get; set; }
+    [Required, MaxLength(100)]
     public string? Nombre { get; set; }
+    [MaxLength(2)]
     public string? CodigoIso2 { get; set; }
 
     // Audit
