@@ -1,8 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SmartCard.Application.DTOs;
-using SmartCard.Application.Paises.Queries;
-using SmartCard.Application.Paises.Commands;
+using SmartCard.Application.Features.Paises.Queries;
+using SmartCard.Application.Features.Paises.Commands;
 
 namespace WebApiSmartCard.Controllers;
 

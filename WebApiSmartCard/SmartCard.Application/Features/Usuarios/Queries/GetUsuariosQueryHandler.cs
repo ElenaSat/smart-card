@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using SmartCard.Application.Common.Interfaces;
 using SmartCard.Application.DTOs;
 
-namespace SmartCard.Application.Usuarios.Queries.GetUsuarios;
+namespace SmartCard.Application.Features.Usuarios.Queries;
 
 public record GetUsuariosQuery : IRequest<List<UsuarioDto>>;
 

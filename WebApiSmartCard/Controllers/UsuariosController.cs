@@ -1,7 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SmartCard.Application.DTOs;
-using SmartCard.Application.Usuarios.Queries.GetUsuarios;
+using SmartCard.Application.Features.Usuarios.Queries;
+using SmartCard.Application.Features.Usuarios.Commands;
 
 namespace WebApiSmartCard.Controllers;
 
@@ -27,14 +28,14 @@ public class UsuariosController : ControllerBase
     [HttpGet("{id:int}")]
     public async Task<ActionResult<UsuarioDto>> GetUsuario(int id)
     {
-        var usuario = await _mediator.Send(new SmartCard.Application.Usuarios.Queries.GetUsuarioById.GetUsuarioByIdQuery(id));
+        var usuario = await _mediator.Send(new GetUsuarioByIdQuery(id));
         if (usuario == null) return NotFound();
         return usuario;
     }
 
     // POST: api/Usuarios
     [HttpPost]
-    public async Task<ActionResult<int>> PostUsuario(SmartCard.Application.Usuarios.Commands.CreateUsuario.CreateUsuarioCommand command)
+    public async Task<ActionResult<int>> PostUsuario(CreateUsuarioCommand command)
     {
         var id = await _mediator.Send(command);
         return CreatedAtAction(nameof(GetUsuario), new { id }, id);
@@ -42,7 +43,7 @@ public class UsuariosController : ControllerBase
 
     // PUT: api/Usuarios/5
     [HttpPut("{id:int}")]
-    public async Task<IActionResult> PutUsuario(int id, SmartCard.Application.Usuarios.Commands.UpdateUsuario.UpdateUsuarioCommand command)
+    public async Task<IActionResult> PutUsuario(int id, UpdateUsuarioCommand command)
     {
         if (id != command.IdUsuario) return BadRequest();
         
@@ -56,7 +57,7 @@ public class UsuariosController : ControllerBase
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> DeleteUsuario(int id)
     {
-        var result = await _mediator.Send(new SmartCard.Application.Usuarios.Commands.DeleteUsuario.DeleteUsuarioCommand(id));
+        var result = await _mediator.Send(new DeleteUsuarioCommand(id));
         if (!result) return NotFound();
 
         return NoContent();

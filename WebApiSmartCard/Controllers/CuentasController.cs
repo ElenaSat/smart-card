@@ -1,8 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using SmartCard.Application.Cuentas.Commands;
-using SmartCard.Application.Cuentas.Queries;
+using SmartCard.Application.Features.Cuentas.Queries;
 using SmartCard.Application.DTOs;
+using SmartCard.Application.Features.Cuentas.Commands;
 
 namespace WebApiSmartCard.Controllers;
 
@@ -35,7 +35,7 @@ public class CuentasController : ControllerBase
 
     // POST: api/Cuentas
     [HttpPost]
-    public async Task<ActionResult<int>> PostCuenta(CreateCuentaCommand command)
+    public async Task<ActionResult<int>> PostCuenta(CreateCuentaCommandHandler command)
     {
         var id = await _mediator.Send(command);
         return CreatedAtAction(nameof(GetCuenta), new { id }, id);

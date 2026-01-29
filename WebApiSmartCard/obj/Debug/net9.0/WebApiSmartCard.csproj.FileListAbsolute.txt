@@ -301,3 +301,4 @@ C:\Users\franc\source\repos\smart-card\WebApiSmartCard\obj\Debug\net9.0\refint\W
 C:\Users\franc\source\repos\smart-card\WebApiSmartCard\obj\Debug\net9.0\WebApiSmartCard.pdb
 C:\Users\franc\source\repos\smart-card\WebApiSmartCard\obj\Debug\net9.0\WebApiSmartCard.genruntimeconfig.cache
 C:\Users\franc\source\repos\smart-card\WebApiSmartCard\obj\Debug\net9.0\ref\WebApiSmartCard.dll
+C:\Users\franc\source\repos\smart-card\WebApiSmartCard\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
