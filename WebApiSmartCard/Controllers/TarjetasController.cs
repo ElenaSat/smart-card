@@ -1,106 +1,65 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using SmartCard.Application.DTOs;
+using SmartCard.Application.Tarjetas.Commands;
+using SmartCard.Application.Tarjetas.Queries;
 
-namespace WebApiSmartCard.Controllers
+namespace WebApiSmartCard.Controllers;
+
+[Route("api/[controller]")]
+[ApiController]
+public class TarjetasController : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class TarjetasController : ControllerBase
+    private readonly IMediator _mediator;
+
+    public TarjetasController(IMediator mediator)
     {
-        private readonly DataContext _context;
+        _mediator = mediator;
+    }
 
-        public TarjetasController(DataContext context)
-        {
-            _context = context;
-        }
+    // GET: api/Tarjetas
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<TarjetaDto>>> GetTarjetas()
+    {
+        return await _mediator.Send(new GetTarjetasQuery());
+    }
 
-        // GET: api/Tarjetas
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Tarjeta>>> GetTarjetas()
-        {
-            return await _context.Tarjetas.ToListAsync();
-        }
+    // GET: api/Tarjetas/5
+    [HttpGet("{id:int}")]
+    public async Task<ActionResult<TarjetaDto>> GetTarjeta(int id)
+    {
+        var tarjeta = await _mediator.Send(new GetTarjetaByIdQuery(id));
+        if (tarjeta == null) return NotFound();
+        return tarjeta;
+    }
 
-        // GET: api/Tarjetas/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Tarjeta>> GetTarjeta(int id)
-        {
-            var tarjeta = await _context.Tarjetas.FindAsync(id);
+    // POST: api/Tarjetas
+    [HttpPost]
+    public async Task<ActionResult<int>> PostTarjeta(CreateTarjetaCommand command)
+    {
+        var id = await _mediator.Send(command);
+        return CreatedAtAction(nameof(GetTarjeta), new { id }, id);
+    }
 
-            if (tarjeta == null)
-            {
-                return NotFound();
-            }
+    // PUT: api/Tarjetas/5
+    [HttpPut("{id:int}")]
+    public async Task<IActionResult> PutTarjeta(int id, UpdateTarjetaCommand command)
+    {
+        if (id != command.IdTarjeta) return BadRequest();
+        
+        var result = await _mediator.Send(command);
+        if (!result) return NotFound();
+        
+        return NoContent();
+    }
 
-            return tarjeta;
-        }
+    // DELETE: api/Tarjetas/5
+    [HttpDelete("{id:int}")]
+    public async Task<IActionResult> DeleteTarjeta(int id)
+    {
+        var result = await _mediator.Send(new DeleteTarjetaCommand(id));
+        if (!result) return NotFound();
 
-        // PUT: api/Tarjetas/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutTarjeta(int id, Tarjeta tarjeta)
-        {
-            if (id != tarjeta.IdTarjeta)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(tarjeta).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TarjetaExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        // POST: api/Tarjetas
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Tarjeta>> PostTarjeta(Tarjeta tarjeta)
-        {
-            _context.Tarjetas.Add(tarjeta);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetTarjeta", new { id = tarjeta.IdTarjeta }, tarjeta);
-        }
-
-        // DELETE: api/Tarjetas/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteTarjeta(int id)
-        {
-            var tarjeta = await _context.Tarjetas.FindAsync(id);
-            if (tarjeta == null)
-            {
-                return NotFound();
-            }
-
-            _context.Tarjetas.Remove(tarjeta);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private bool TarjetaExists(int id)
-        {
-            return _context.Tarjetas.Any(e => e.IdTarjeta == id);
-        }
+        return NoContent();
     }
 }

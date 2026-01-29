@@ -1,106 +1,43 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using SmartCard.Application.DTOs;
+using SmartCard.Application.Tipos.Queries;
+using SmartCard.Application.Tipos.Commands;
 
-namespace WebApiSmartCard.Controllers
+namespace WebApiSmartCard.Controllers;
+
+[Route("api/[controller]")]
+[ApiController]
+public class TipoTarjetasController : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class TipoTarjetasController : ControllerBase
-    {
-        private readonly DataContext _context;
+    private readonly IMediator _mediator;
+    public TipoTarjetasController(IMediator mediator) => _mediator = mediator;
 
-        public TipoTarjetasController(DataContext context)
-        {
-            _context = context;
-        }
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<TipoTarjetaDto>>> Get() => await _mediator.Send(new GetTiposQuery());
 
-        // GET: api/TipoTarjetas
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<TipoTarjeta>>> GetTiposTarjeta()
-        {
-            return await _context.TiposTarjeta.ToListAsync();
-        }
+    [HttpGet("{id:int}")]
+    public async Task<ActionResult<TipoTarjetaDto>> Get(int id) {
+        var res = await _mediator.Send(new GetTipoByIdQuery(id));
+        return res == null ? NotFound() : res;
+    }
 
-        // GET: api/TipoTarjetas/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<TipoTarjeta>> GetTipoTarjeta(int id)
-        {
-            var tipoTarjeta = await _context.TiposTarjeta.FindAsync(id);
+    [HttpPost]
+    public async Task<ActionResult<int>> Post(CreateTipoCommand command) {
+        var id = await _mediator.Send(command);
+        return CreatedAtAction(nameof(Get), new { id }, id);
+    }
 
-            if (tipoTarjeta == null)
-            {
-                return NotFound();
-            }
+    [HttpPut("{id:int}")]
+    public async Task<IActionResult> Put(int id, UpdateTipoCommand command) {
+        if (id != command.IdTipo) return BadRequest();
+        if (!await _mediator.Send(command)) return NotFound();
+        return NoContent();
+    }
 
-            return tipoTarjeta;
-        }
-
-        // PUT: api/TipoTarjetas/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutTipoTarjeta(int id, TipoTarjeta tipoTarjeta)
-        {
-            if (id != tipoTarjeta.IdTipo)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(tipoTarjeta).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TipoTarjetaExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        // POST: api/TipoTarjetas
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<TipoTarjeta>> PostTipoTarjeta(TipoTarjeta tipoTarjeta)
-        {
-            _context.TiposTarjeta.Add(tipoTarjeta);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetTipoTarjeta", new { id = tipoTarjeta.IdTipo }, tipoTarjeta);
-        }
-
-        // DELETE: api/TipoTarjetas/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteTipoTarjeta(int id)
-        {
-            var tipoTarjeta = await _context.TiposTarjeta.FindAsync(id);
-            if (tipoTarjeta == null)
-            {
-                return NotFound();
-            }
-
-            _context.TiposTarjeta.Remove(tipoTarjeta);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private bool TipoTarjetaExists(int id)
-        {
-            return _context.TiposTarjeta.Any(e => e.IdTipo == id);
-        }
+    [HttpDelete("{id:int}")]
+    public async Task<IActionResult> Delete(int id) {
+        if (!await _mediator.Send(new DeleteTipoCommand(id))) return NotFound();
+        return NoContent();
     }
 }

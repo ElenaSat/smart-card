@@ -1,106 +1,65 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using SmartCard.Application.Cuentas.Commands;
+using SmartCard.Application.Cuentas.Queries;
+using SmartCard.Application.DTOs;
 
-namespace WebApiSmartCard.Controllers
+namespace WebApiSmartCard.Controllers;
+
+[Route("api/[controller]")]
+[ApiController]
+public class CuentasController : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class CuentasController : ControllerBase
+    private readonly IMediator _mediator;
+
+    public CuentasController(IMediator mediator)
     {
-        private readonly DataContext _context;
+        _mediator = mediator;
+    }
 
-        public CuentasController(DataContext context)
-        {
-            _context = context;
-        }
+    // GET: api/Cuentas
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<CuentaDto>>> GetCuentas()
+    {
+        return await _mediator.Send(new GetCuentasQuery());
+    }
 
-        // GET: api/Cuentas
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Cuenta>>> GetCuentas()
-        {
-            return await _context.Cuentas.ToListAsync();
-        }
+    // GET: api/Cuentas/5
+    [HttpGet("{id:int}")]
+    public async Task<ActionResult<CuentaDto>> GetCuenta(int id)
+    {
+        var cuenta = await _mediator.Send(new GetCuentaByIdQuery(id));
+        if (cuenta == null) return NotFound();
+        return cuenta;
+    }
 
-        // GET: api/Cuentas/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Cuenta>> GetCuenta(int id)
-        {
-            var cuenta = await _context.Cuentas.FindAsync(id);
+    // POST: api/Cuentas
+    [HttpPost]
+    public async Task<ActionResult<int>> PostCuenta(CreateCuentaCommand command)
+    {
+        var id = await _mediator.Send(command);
+        return CreatedAtAction(nameof(GetCuenta), new { id }, id);
+    }
 
-            if (cuenta == null)
-            {
-                return NotFound();
-            }
+    // PUT: api/Cuentas/5
+    [HttpPut("{id:int}")]
+    public async Task<IActionResult> PutCuenta(int id, UpdateCuentaCommand command)
+    {
+        if (id != command.IdCuenta) return BadRequest();
+        
+        var result = await _mediator.Send(command);
+        if (!result) return NotFound();
+        
+        return NoContent();
+    }
 
-            return cuenta;
-        }
+    // DELETE: api/Cuentas/5
+    [HttpDelete("{id:int}")]
+    public async Task<IActionResult> DeleteCuenta(int id)
+    {
+        var result = await _mediator.Send(new DeleteCuentaCommand(id));
+        if (!result) return NotFound();
 
-        // PUT: api/Cuentas/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutCuenta(int id, Cuenta cuenta)
-        {
-            if (id != cuenta.IdCuenta)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(cuenta).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CuentaExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        // POST: api/Cuentas
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Cuenta>> PostCuenta(Cuenta cuenta)
-        {
-            _context.Cuentas.Add(cuenta);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetCuenta", new { id = cuenta.IdCuenta }, cuenta);
-        }
-
-        // DELETE: api/Cuentas/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCuenta(int id)
-        {
-            var cuenta = await _context.Cuentas.FindAsync(id);
-            if (cuenta == null)
-            {
-                return NotFound();
-            }
-
-            _context.Cuentas.Remove(cuenta);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private bool CuentaExists(int id)
-        {
-            return _context.Cuentas.Any(e => e.IdCuenta == id);
-        }
+        return NoContent();
     }
 }

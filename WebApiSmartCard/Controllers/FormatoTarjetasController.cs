@@ -1,106 +1,43 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using SmartCard.Application.DTOs;
+using SmartCard.Application.Formatos.Queries;
+using SmartCard.Application.Formatos.Commands;
 
-namespace WebApiSmartCard.Controllers
+namespace WebApiSmartCard.Controllers;
+
+[Route("api/[controller]")]
+[ApiController]
+public class FormatoTarjetasController : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class FormatoTarjetasController : ControllerBase
-    {
-        private readonly DataContext _context;
+    private readonly IMediator _mediator;
+    public FormatoTarjetasController(IMediator mediator) => _mediator = mediator;
 
-        public FormatoTarjetasController(DataContext context)
-        {
-            _context = context;
-        }
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<FormatoTarjetaDto>>> Get() => await _mediator.Send(new GetFormatosQuery());
 
-        // GET: api/FormatoTarjetas
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<FormatoTarjeta>>> GetFormatosTarjeta()
-        {
-            return await _context.FormatosTarjeta.ToListAsync();
-        }
+    [HttpGet("{id:int}")]
+    public async Task<ActionResult<FormatoTarjetaDto>> Get(int id) {
+        var res = await _mediator.Send(new GetFormatoByIdQuery(id));
+        return res == null ? NotFound() : res;
+    }
 
-        // GET: api/FormatoTarjetas/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<FormatoTarjeta>> GetFormatoTarjeta(int id)
-        {
-            var formatoTarjeta = await _context.FormatosTarjeta.FindAsync(id);
+    [HttpPost]
+    public async Task<ActionResult<int>> Post(CreateFormatoCommand command) {
+        var id = await _mediator.Send(command);
+        return CreatedAtAction(nameof(Get), new { id }, id);
+    }
 
-            if (formatoTarjeta == null)
-            {
-                return NotFound();
-            }
+    [HttpPut("{id:int}")]
+    public async Task<IActionResult> Put(int id, UpdateFormatoCommand command) {
+        if (id != command.IdFormato) return BadRequest();
+        if (!await _mediator.Send(command)) return NotFound();
+        return NoContent();
+    }
 
-            return formatoTarjeta;
-        }
-
-        // PUT: api/FormatoTarjetas/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutFormatoTarjeta(int id, FormatoTarjeta formatoTarjeta)
-        {
-            if (id != formatoTarjeta.IdFormato)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(formatoTarjeta).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!FormatoTarjetaExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        // POST: api/FormatoTarjetas
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<FormatoTarjeta>> PostFormatoTarjeta(FormatoTarjeta formatoTarjeta)
-        {
-            _context.FormatosTarjeta.Add(formatoTarjeta);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetFormatoTarjeta", new { id = formatoTarjeta.IdFormato }, formatoTarjeta);
-        }
-
-        // DELETE: api/FormatoTarjetas/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteFormatoTarjeta(int id)
-        {
-            var formatoTarjeta = await _context.FormatosTarjeta.FindAsync(id);
-            if (formatoTarjeta == null)
-            {
-                return NotFound();
-            }
-
-            _context.FormatosTarjeta.Remove(formatoTarjeta);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private bool FormatoTarjetaExists(int id)
-        {
-            return _context.FormatosTarjeta.Any(e => e.IdFormato == id);
-        }
+    [HttpDelete("{id:int}")]
+    public async Task<IActionResult> Delete(int id) {
+        if (!await _mediator.Send(new DeleteFormatoCommand(id))) return NotFound();
+        return NoContent();
     }
 }

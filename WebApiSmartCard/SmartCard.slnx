@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="SmartCard.Application/SmartCard.Application.csproj" />
+  <Project Path="SmartCard.Domain/SmartCard.Domain.csproj" />
+  <Project Path="SmartCard.Infrastructure/SmartCard.Infrastructure.csproj" />
+  <Project Path="WebApiSmartCard.csproj" />
+</Solution>

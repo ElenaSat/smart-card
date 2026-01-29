@@ -1,107 +1,43 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using SmartCard.Application.DTOs;
+using SmartCard.Application.UsuarioSistemas.Queries;
+using SmartCard.Application.UsuarioSistemas.Commands;
 
-namespace WebApiSmartCard.Controllers
+namespace WebApiSmartCard.Controllers;
+
+[Route("api/[controller]")]
+[ApiController]
+public class UsuarioSistemasController : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class UsuarioSistemasController : ControllerBase
-    {
-        private readonly DataContext _context;
+    private readonly IMediator _mediator;
+    public UsuarioSistemasController(IMediator mediator) => _mediator = mediator;
 
-        public UsuarioSistemasController(DataContext context)
-        {
-            _context = context;
-        }
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<UsuarioSistemaDto>>> Get() => await _mediator.Send(new GetUsuarioSistemasQuery());
 
-        // GET: api/UsuarioSistemas
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<UsuarioSistema>>> GetUsuarioSistema()
-        {
+    [HttpGet("{id:int}")]
+    public async Task<ActionResult<UsuarioSistemaDto>> Get(int id) {
+        var res = await _mediator.Send(new GetUsuarioSistemaByIdQuery(id));
+        return res == null ? NotFound() : res;
+    }
 
-            return await _context.UsuarioSistema.ToListAsync();
-        }
+    [HttpPost]
+    public async Task<ActionResult<int>> Post(CreateUsuarioSistemaCommand command) {
+        var id = await _mediator.Send(command);
+        return CreatedAtAction(nameof(Get), new { id }, id);
+    }
 
-        // GET: api/UsuarioSistemas/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<UsuarioSistema>> GetUsuarioSistema(int id)
-        {
-            var usuarioSistema = await _context.UsuarioSistema.FindAsync(id);
+    [HttpPut("{id:int}")]
+    public async Task<IActionResult> Put(int id, UpdateUsuarioSistemaCommand command) {
+        if (id != command.IdUsuarioSistema) return BadRequest();
+        if (!await _mediator.Send(command)) return NotFound();
+        return NoContent();
+    }
 
-            if (usuarioSistema == null)
-            {
-                return NotFound();
-            }
-
-            return usuarioSistema;
-        }
-
-        // PUT: api/UsuarioSistemas/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutUsuarioSistema(int id, UsuarioSistema usuarioSistema)
-        {
-            if (id != usuarioSistema.IdUsuarioSistema)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(usuarioSistema).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!UsuarioSistemaExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        // POST: api/UsuarioSistemas
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<UsuarioSistema>> PostUsuarioSistema(UsuarioSistema usuarioSistema)
-        {
-            _context.UsuarioSistema.Add(usuarioSistema);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetUsuarioSistema", new { id = usuarioSistema.IdUsuarioSistema }, usuarioSistema);
-        }
-
-        // DELETE: api/UsuarioSistemas/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUsuarioSistema(int id)
-        {
-            var usuarioSistema = await _context.UsuarioSistema.FindAsync(id);
-            if (usuarioSistema == null)
-            {
-                return NotFound();
-            }
-
-            _context.UsuarioSistema.Remove(usuarioSistema);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private bool UsuarioSistemaExists(int id)
-        {
-            return _context.UsuarioSistema.Any(e => e.IdUsuarioSistema == id);
-        }
+    [HttpDelete("{id:int}")]
+    public async Task<IActionResult> Delete(int id) {
+        if (!await _mediator.Send(new DeleteUsuarioSistemaCommand(id))) return NotFound();
+        return NoContent();
     }
 }
