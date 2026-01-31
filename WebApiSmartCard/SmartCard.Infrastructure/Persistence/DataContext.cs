@@ -23,7 +23,7 @@ public class DataContext(DbContextOptions<DataContext> options) : DbContext(opti
         // =====================================================
         modelBuilder.Entity<Usuario>(entity =>
         {
-            entity.ToTable("usuario");
+            entity.ToTable("usuario", tb => tb.HasTrigger("trg_usuario_update"));
 
             entity.Property(e => e.IdUsuario).HasColumnName("id_usuario");
             entity.Property(e => e.Titulo).HasColumnName("titulo");
@@ -43,7 +43,7 @@ public class DataContext(DbContextOptions<DataContext> options) : DbContext(opti
         // =====================================================
         modelBuilder.Entity<Cuenta>(entity =>
         {
-            entity.ToTable("cuenta");
+            entity.ToTable("cuenta", tb => tb.HasTrigger("trg_cuenta_update"));
 
             entity.Property(e => e.IdCuenta).HasColumnName("id_cuenta");
             entity.Property(e => e.Numero).HasColumnName("numero").HasMaxLength(50);
@@ -65,7 +65,7 @@ public class DataContext(DbContextOptions<DataContext> options) : DbContext(opti
         // =====================================================
         modelBuilder.Entity<Tarjeta>(entity =>
         {
-            entity.ToTable("tarjeta");
+            entity.ToTable("tarjeta", tb => tb.HasTrigger("trg_tarjeta_update"));
 
             entity.Property(e => e.IdTarjeta).HasColumnName("id_tarjeta");
             entity.Property(e => e.IdCuenta).HasColumnName("id_cuenta");
@@ -100,7 +100,7 @@ public class DataContext(DbContextOptions<DataContext> options) : DbContext(opti
         // =====================================================
         modelBuilder.Entity<Pais>(entity =>
         {
-            entity.ToTable("pais");
+            entity.ToTable("pais", tb => tb.HasTrigger(" trg_pais_update"));
             entity.Property(e => e.IdPais).HasColumnName("id_pais");
             entity.Property(e => e.Nombre).HasColumnName("nombre");
             entity.Property(e => e.CodigoIso2).HasColumnName("codigo_iso2");
@@ -113,7 +113,7 @@ public class DataContext(DbContextOptions<DataContext> options) : DbContext(opti
 
         modelBuilder.Entity<TipoTarjeta>(entity =>
         {
-            entity.ToTable("tipo_tarjeta");
+            entity.ToTable("tipo_tarjeta", tb => tb.HasTrigger("trg_tipo_tarjeta_update"));
             entity.Property(e => e.IdTipo).HasColumnName("id_tipo");
             entity.Property(e => e.Nombre).HasColumnName("nombre");
 
@@ -126,7 +126,7 @@ public class DataContext(DbContextOptions<DataContext> options) : DbContext(opti
 
         modelBuilder.Entity<FormatoTarjeta>(entity =>
         {
-            entity.ToTable("formato_tarjeta");
+            entity.ToTable("formato_tarjeta", tb => tb.HasTrigger("trg_formato_tarjeta_update"));
             entity.Property(e => e.IdFormato).HasColumnName("id_formato");
             entity.Property(e => e.Nombre).HasColumnName("nombre");
             // AUDITORÍA

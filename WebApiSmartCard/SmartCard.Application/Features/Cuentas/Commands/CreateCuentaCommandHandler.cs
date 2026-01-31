@@ -2,6 +2,7 @@
 using MediatR;
 using SmartCard.Application.Common.Interfaces;
 using SmartCard.Domain.Entities;
+using System.Text.Json.Serialization;
 
 namespace SmartCard.Application.Features.Cuentas.Commands
 {
@@ -9,7 +10,7 @@ namespace SmartCard.Application.Features.Cuentas.Commands
     public record CreateCuentaCommand : IRequest<int>
     {
         public string? Numero { get; set; }
-        public int? IdUsuario { get; set; }
+        public int? IdUsuario { get; set; }       
     }
 
     public class CreateCuentaCommandHandler : IRequestHandler<CreateCuentaCommand, int>
@@ -17,6 +18,7 @@ namespace SmartCard.Application.Features.Cuentas.Commands
         private readonly IApplicationDbContext _context;
         private readonly IMapper _mapper;
 
+       
         public CreateCuentaCommandHandler(IApplicationDbContext context, IMapper mapper)
         {
             _context = context;

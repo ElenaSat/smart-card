@@ -29,7 +29,7 @@
     "Parameters": [
       {
         "Name": "command",
-        "Type": "SmartCard.Application.Features.Cuentas.Commands.CreateCuentaCommandHandler",
+        "Type": "SmartCard.Application.Features.Cuentas.Commands.CreateCuentaCommand",
         "IsRequired": true
       }
     ],

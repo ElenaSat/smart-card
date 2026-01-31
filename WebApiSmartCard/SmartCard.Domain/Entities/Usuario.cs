@@ -12,7 +12,7 @@ public class Usuario
     public string? Nombre { get; set; }
     [Required, MaxLength(40)]
     public string? Apellido { get; set; }
-    [Required, MaxLength(500)]
+    [MaxLength(500)]
     public string? InfoExtra { get; set; }
     
     // Audit

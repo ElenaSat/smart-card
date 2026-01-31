@@ -35,7 +35,7 @@ public class CuentasController : ControllerBase
 
     // POST: api/Cuentas
     [HttpPost]
-    public async Task<ActionResult<int>> PostCuenta(CreateCuentaCommandHandler command)
+    public async Task<ActionResult<int>> PostCuenta(CreateCuentaCommand command)
     {
         var id = await _mediator.Send(command);
         return CreatedAtAction(nameof(GetCuenta), new { id }, id);
