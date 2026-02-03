@@ -5,6 +5,9 @@ import { IconDirective, IconService } from '@ant-design/icons-angular';
 import { ArrowLeftOutline } from '@ant-design/icons-angular/icons';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { TarjetasService } from './tarjetas.service';
+import { PaisesService } from '../paises/paises.service';
+import { TipoTarjetasService } from '../tipo-tarjetas/tipo-tarjetas.service';
+import { FormatoTarjetasService } from '../formato-tarjetas/formato-tarjetas.service';
 
 @Component({
   selector: 'app-tarjetas-form',
@@ -60,13 +63,23 @@ import { TarjetasService } from './tarjetas.service';
                     <label for="idCuenta" class="form-label">ID Cuenta</label>
                     <input id="idCuenta" formControlName="idCuenta" type="number" class="form-control">
                   </div>
-                  <div class="col-md-4 mb-3">
-                    <label for="idTipo" class="form-label">ID Tipo Tarjeta</label>
-                    <input id="idTipo" formControlName="idTipo" type="number" class="form-control">
+                  <div class="col-md-4 mb-3">                    
+                    <label for="idTipo" class="form-label">Tipo Tarjeta</label>
+                    <select id="idTipo" formControlName="idTipo" class="form-select">
+                      <option [ngValue]="null">Seleccione un tipo</option>
+                      @for (tipo of tipos$ | async; track tipo.idTipo) {
+                        <option [ngValue]="tipo.idTipo">{{ tipo.nombre }}</option>
+                      }
+                    </select>                  
                   </div>
                   <div class="col-md-4 mb-3">
-                    <label for="idFormato" class="form-label">ID Formato</label>
-                    <input id="idFormato" formControlName="idFormato" type="number" class="form-control">
+                    <label for="idFormato" class="form-label">Formato</label>
+                    <select id="idFormato" formControlName="idFormato" class="form-select">
+                      <option [ngValue]="null">Seleccione un formato</option>
+                      @for (formato of formatos$ | async; track formato.idFormato) {
+                        <option [ngValue]="formato.idFormato">{{ formato.nombre }}</option>
+                      }
+                    </select>  
                   </div>
                 </div>
 
@@ -81,8 +94,13 @@ import { TarjetasService } from './tarjetas.service';
                     <input id="fechaExpiracion" formControlName="fechaExpiracion" type="date" class="form-control">
                   </div>
                   <div class="col-md-4 mb-3">
-                    <label for="idPaisEmision" class="form-label">ID País Emisión</label>
-                    <input id="idPaisEmision" formControlName="idPaisEmision" type="number" class="form-control">
+                    <label for="idPaisEmision" class="form-label">País Emisión</label>
+                    <select id="idPaisEmision" formControlName="idPaisEmision" class="form-select">
+                      <option [ngValue]="null">Seleccione un país</option>
+                      @for (pais of paises$ | async; track pais.idPais) {
+                        <option [ngValue]="pais.idPais">{{ pais.nombre }} ({{ pais.codigoIso2 }})</option>
+                      }
+                    </select>
                   </div>
                 </div>
 
@@ -133,9 +151,15 @@ export class TarjetasFormComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly iconService = inject(IconService);
+  private readonly paisesService = inject(PaisesService);
+  private readonly tiposService = inject(TipoTarjetasService);
+  private readonly formatosService = inject(FormatoTarjetasService);
 
   loading$ = this.service.loading;
   error$ = this.service.error;
+  paises$ = this.paisesService.items;
+  tipos$ = this.tiposService.items;
+  formatos$ = this.formatosService.items;
   isEdit = false;
   private editId?: number;
 
@@ -160,6 +184,9 @@ export class TarjetasFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.paisesService.refresh();
+    this.tiposService.refresh();
+    this.formatosService.refresh();
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.isEdit = true;
