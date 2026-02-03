@@ -8,12 +8,16 @@ import { TarjetasService } from './tarjetas.service';
 import { PaisesService } from '../paises/paises.service';
 import { TipoTarjetasService } from '../tipo-tarjetas/tipo-tarjetas.service';
 import { FormatoTarjetasService } from '../formato-tarjetas/formato-tarjetas.service';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { CuentasService } from '../cuentas/cuentas.service';
+import { UsuariosService } from '../usuarios/usuarios.service';
+import { map, startWith, combineLatest, BehaviorSubject } from 'rxjs';
+import { Cuenta } from '../../shared/models';
 
 @Component({
   selector: 'app-tarjetas-form',
   standalone: true,
-
-  imports: [CommonModule, ReactiveFormsModule, RouterLink, IconDirective],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, IconDirective, NgSelectModule],
   template: `
     <div class="row">
       <div class="col-sm-12">
@@ -59,12 +63,30 @@ import { FormatoTarjetasService } from '../formato-tarjetas/formato-tarjetas.ser
 
                 <!-- Relations Section -->
                 <div class="row">
-                  <div class="col-md-4 mb-3">
-                    <label for="idCuenta" class="form-label">ID Cuenta</label>
-                    <input id="idCuenta" formControlName="idCuenta" type="number" class="form-control">
+                  <div class="col-md-6 mb-3">
+                    <label for="idUsuario" class="form-label">Usuario</label>
+                    <ng-select id="idUsuario" formControlName="idUsuario" [items]="usuarios$ | async" 
+                               bindLabel="nombre" bindValue="idUsuario" placeholder="Seleccione un usuario">
+                         <ng-template ng-label-tmp let-item="item">
+                            {{item.nombre}} {{item.apellido}}
+                        </ng-template>
+                        <ng-template ng-option-tmp let-item="item">
+                            {{item.nombre}} {{item.apellido}} <small class="text-muted">({{item.titulo}})</small>
+                        </ng-template>
+                    </ng-select>
                   </div>
-                  <div class="col-md-4 mb-3">                    
-                    <label for="idTipo" class="form-label">Tipo Tarjeta</label>
+                  <div class="col-md-6 mb-3">
+                    <label for="idCuenta" class="form-label">Cuenta</label>
+                    <ng-select id="idCuenta" formControlName="idCuenta" [items]="cuentas$ | async" 
+                               bindLabel="numero" bindValue="idCuenta" placeholder="Seleccione una cuenta">
+                    </ng-select>
+                  </div> 
+                </div>
+
+                <!-- Dates Section -->
+                <div class="row">
+                   <div class="col-md-4 mb-3">                    
+                    <label for="idTipo" class="form-label">Tipo Tarjeta</label> 
                     <select id="idTipo" formControlName="idTipo" class="form-select">
                       <option [ngValue]="null">Seleccione un tipo</option>
                       @for (tipo of tipos$ | async; track tipo.idTipo) {
@@ -72,7 +94,7 @@ import { FormatoTarjetasService } from '../formato-tarjetas/formato-tarjetas.ser
                       }
                     </select>                  
                   </div>
-                  <div class="col-md-4 mb-3">
+                   <div class="col-md-4 mb-3">
                     <label for="idFormato" class="form-label">Formato</label>
                     <select id="idFormato" formControlName="idFormato" class="form-select">
                       <option [ngValue]="null">Seleccione un formato</option>
@@ -80,18 +102,6 @@ import { FormatoTarjetasService } from '../formato-tarjetas/formato-tarjetas.ser
                         <option [ngValue]="formato.idFormato">{{ formato.nombre }}</option>
                       }
                     </select>  
-                  </div>
-                </div>
-
-                <!-- Dates Section -->
-                <div class="row">
-                  <div class="col-md-4 mb-3">
-                    <label for="fechaEmision" class="form-label">Fecha Emisión</label>
-                    <input id="fechaEmision" formControlName="fechaEmision" type="date" class="form-control">
-                  </div>
-                  <div class="col-md-4 mb-3">
-                    <label for="fechaExpiracion" class="form-label">Fecha Expiración</label>
-                    <input id="fechaExpiracion" formControlName="fechaExpiracion" type="date" class="form-control">
                   </div>
                   <div class="col-md-4 mb-3">
                     <label for="idPaisEmision" class="form-label">País Emisión</label>
@@ -102,6 +112,14 @@ import { FormatoTarjetasService } from '../formato-tarjetas/formato-tarjetas.ser
                       }
                     </select>
                   </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="fechaEmision" class="form-label">Fecha Emisión</label>
+                    <input id="fechaEmision" formControlName="fechaEmision" type="date" class="form-control">
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="fechaExpiracion" class="form-label">Fecha Expiración</label>
+                    <input id="fechaExpiracion" formControlName="fechaExpiracion" type="date" class="form-control">
+                  </div>                  
                 </div>
 
                 <!-- Flags Section -->
@@ -154,16 +172,25 @@ export class TarjetasFormComponent implements OnInit {
   private readonly paisesService = inject(PaisesService);
   private readonly tiposService = inject(TipoTarjetasService);
   private readonly formatosService = inject(FormatoTarjetasService);
+  private readonly cuentasService = inject(CuentasService);
+  private readonly usuariosService = inject(UsuariosService);
 
   loading$ = this.service.loading;
   error$ = this.service.error;
   paises$ = this.paisesService.items;
   tipos$ = this.tiposService.items;
   formatos$ = this.formatosService.items;
+  usuarios$ = this.usuariosService.items;
+
+  // Cuentas filtered by selected user
+  cuentas$ = new BehaviorSubject<Cuenta[]>([]);
+  private allCuentas: Cuenta[] = [];
+
   isEdit = false;
   private editId?: number;
 
   form = this.fb.group({
+    idUsuario: [null as number | null],
     idCuenta: [null as number | null],
     idFormato: [null as number | null],
     idTipo: [null as number | null],
@@ -187,6 +214,32 @@ export class TarjetasFormComponent implements OnInit {
     this.paisesService.refresh();
     this.tiposService.refresh();
     this.formatosService.refresh();
+    this.cuentasService.refresh();
+    this.usuariosService.refresh();
+
+    // Handle account filtering logic
+    combineLatest([
+      this.cuentasService.items,
+      this.form.controls.idUsuario.valueChanges.pipe(startWith(this.form.controls.idUsuario.value))
+    ]).subscribe(([cuentas, idUsuario]) => {
+      this.allCuentas = cuentas;
+      if (idUsuario) {
+        this.cuentas$.next(cuentas.filter(c => c.idUsuario === idUsuario));
+      } else {
+        this.cuentas$.next(cuentas);
+      }
+    });
+
+    // Handle auto-select user when account is selected
+    this.form.controls.idCuenta.valueChanges.subscribe(idCuenta => {
+      if (idCuenta) {
+        const cuenta = this.allCuentas.find(c => c.idCuenta === idCuenta);
+        if (cuenta && cuenta.idUsuario && this.form.controls.idUsuario.value !== cuenta.idUsuario) {
+          this.form.controls.idUsuario.setValue(cuenta.idUsuario, { emitEvent: false });
+        }
+      }
+    });
+
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.isEdit = true;
@@ -203,6 +256,14 @@ export class TarjetasFormComponent implements OnInit {
           fechaEmision: item.fechaEmision ? item.fechaEmision.split('T')[0] : '',
           fechaExpiracion: item.fechaExpiracion ? item.fechaExpiracion.split('T')[0] : ''
         });
+
+        // Trigger generic logic to set user based on account loaded
+        if (item.idCuenta) {
+          const cuenta = this.allCuentas.find(c => c.idCuenta === item.idCuenta);
+          if (cuenta && cuenta.idUsuario) {
+            this.form.controls.idUsuario.setValue(cuenta.idUsuario, { emitEvent: false });
+          }
+        }
       }
     });
   }
