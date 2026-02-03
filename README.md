@@ -14,7 +14,7 @@ Sistema de administración de tarjetas inteligentes desarrollado con una arquite
 *   **Documentación:** Swagger / OpenAPI
 
 ### Frontend (Angular)
-*   **Framework:** Angular
+*   **Framework:** Angular 21
 *   **Lenguaje:** TypeScript
 *   **Estilos:**
     *   Bootstrap 5
