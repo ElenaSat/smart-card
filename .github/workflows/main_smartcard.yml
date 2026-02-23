@@ -36,6 +36,7 @@ jobs:
           path: ${{env.DOTNET_ROOT}}/myapp
 
   deploy:
+    if: ${{ false }} # Deshabilita este job, pero mantiene la definición
     runs-on: windows-latest
     needs: build
     permissions:
